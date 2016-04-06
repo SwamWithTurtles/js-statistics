@@ -19,6 +19,7 @@
   "dependencies": {
     "requirejs": "^2.2.0",
     "bootstrap": "^3.3.6",
-    "knockout": "^3.4.0"
+    "knockout": "^3.4.0",
+    "Chart.js": "^1.1.1"
   }
 }

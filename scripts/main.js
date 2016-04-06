@@ -1,11 +1,19 @@
 require.config({
     paths: {
-        'knockout': '../bower_components/knockout/dist/knockout'
+        'ko-lib': '../bower_components/knockout/dist/knockout',
+        'knockout': 'lib/ko-lib',
+        'chart': '../bower_components/Chart.js/Chart'
+    },
+    shim: {
+        'chart': {
+            exports: 'Chart'
+        }
     }
+
 })
-require(['knockout'], function(ko) {
+require(['knockout', 'data/stubData'], function(ko, d) {
     var viewModel = {
-        t: ko.observable("Knockout is Enabled")
+        d: ko.observable(d)
     };
 
     ko.applyBindings(viewModel);
