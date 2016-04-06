@@ -1,0 +1,24 @@
+{
+  "name": "js-statistics",
+  "homepage": "https://github.com/SwamWithTurtles/js-statistics",
+  "authors": [
+    "David Simons <12e.david@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "^2.2.0",
+    "bootstrap": "^3.3.6",
+    "knockout": "^3.4.0"
+  }
+}
