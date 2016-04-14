@@ -8,6 +8,8 @@ define(["knockout", "lodash", "stat/weightedRandom"], function(ko, _, weightedRa
         }]
     });
 
+    var numberOfNodes = ko.observable(2);
+
 
     var findNodeMeetingCondition = function(predicate, nodesToSearch) {
             var nameAsString = "" + name;
@@ -44,11 +46,13 @@ define(["knockout", "lodash", "stat/weightedRandom"], function(ko, _, weightedRa
                 nodeToAdd.children = [];
             }
             nodeToAdd.children.push({
-                name: "" + frequencies().length,
+                name: "" + numberOfNodes()
             });
 
             frequencies()[chosenIndex]++;
             frequencies.push(1);
+
+            numberOfNodes(numberOfNodes() + 1);
             graphNodes.notifySubscribers();
        },
        nodes: graphNodes,
@@ -77,7 +81,7 @@ define(["knockout", "lodash", "stat/weightedRandom"], function(ko, _, weightedRa
               ]
           };
        }),
-
+        numberOfNodes: numberOfNodes
     }};
 
 });

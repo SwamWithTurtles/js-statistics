@@ -22,6 +22,7 @@ require(['knockout', 'graph/graph'], function(ko, Graph) {
         addNode: g.add,
         nodeMap: g.nodes,
         addToGraph: ko.observable(true),
+        numberOfNodes: g.numberOfNodes,
         toggleGraph: function() {
             viewModel.addToGraph(!viewModel.addToGraph());
             if(viewModel.addToGraph) {
