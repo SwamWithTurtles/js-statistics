@@ -1,5 +1,6 @@
 define(['ko-lib',
-    'bindings/chart'], function(ko, chart) {
+    'bindings/chart',
+    'bindings/treeViz'], function(ko, chart, tv) {
 
     return ko;
 });
