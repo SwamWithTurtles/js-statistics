@@ -35,7 +35,27 @@
 
     <h1>Data Summary</h1>
 
-    <canvas data-bind="frequencyChart: freq"></canvas>
+    <div class="bs-callout bs-callout-warning">
+        <p>Data collected from the US National Climatic Data Centre, and represents hourly surface temperature collections in Santa Bernardina, Uruguay from April 1986 to April 2016</p>
+
+        <button data-bind="click: function() {selectedView('freq')}">Frequency</button>
+        <button data-bind="click: function() {selectedView('annualAvg')}">Annual Average</button>
+        <button data-bind="click: function() {selectedView('hourAvg')}">Hourly Average</button>
+
+    </div>
+
+    <div data-bind="if: selectedView() === 'freq'">
+        <canvas data-bind="frequencyChart: freq"></canvas>
+    </div>
+
+
+    <div data-bind="if: selectedView() === 'annualAvg'">
+        <canvas data-bind="chart: averageOverYears"></canvas>
+    </div>
+
+    <div data-bind="if: selectedView() === 'hourAvg'">
+        <canvas data-bind="chart: hourlyAverage"></canvas>
+    </div>
 
     </body>
 </html>
