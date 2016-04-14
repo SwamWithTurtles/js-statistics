@@ -1,0 +1,58 @@
+<html>
+
+    <head>
+        <title></title>
+        <script src="bower_components/requirejs/require.js" data-main="scripts/coin-toss.js"></script>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/bs-callouts.css">
+        <link rel="stylesheet" href="styles/graph-fill.css">
+    </head>
+
+    <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">JS-Statistics</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="graph.html">Graph Simulation</a></li>
+                    <li class="active"><a href="coin-toss.html">Tossing Coins<span class="sr-only">(current)</span></a></li>
+                    <li><a href="data-summary.html">Data Summary</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <h1>Tossing a Coin</h1>
+
+    <pre>var coinTossResult = function () {
+    var rand = Math.random();
+    return rand < 0.5 ? "Heads" : "Tails";
+}</pre>
+
+
+    <button data-bind="click: tossCoin">
+        Toss a Coin
+    </button>
+
+    <span data-bind="text: lastResult"></span>
+
+    <canvas data-bind="frequencyChart: allResults" style="float: right"></canvas>
+
+    <ul data-bind="foreach: allResults">
+        <li data-bind="text: $data"></li>
+    </ul>
+
+
+    </body>
+</html>

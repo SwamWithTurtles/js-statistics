@@ -1,6 +1,7 @@
 define(['ko-lib',
     'bindings/chart',
-    'bindings/treeViz'], function(ko, chart, tv) {
+    'bindings/treeViz',
+    'bindings/frequencyChart'], function(ko, chart, tv) {
 
     return ko;
 });
