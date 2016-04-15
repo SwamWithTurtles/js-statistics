@@ -2,7 +2,7 @@
 
     <head>
         <title></title>
-        <script src="bower_components/requirejs/require.js" data-main="scripts/graph.js"></script>
+        <script src="bower_components/requirejs/require.js" data-main="scripts/heights.js"></script>
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/bs-callouts.css">
         <link rel="stylesheet" href="styles/graph-fill.css">
@@ -23,8 +23,9 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="graph.html">Graph Simulation<span class="sr-only">(current)</span></a></li>
-                    <li><a href="coin-toss.html">Party Heights</a></li>
+
+                    <li><a href="graph.html">Graph Simulation</a></li>
+                    <li class="active"><a href="coin-toss.html">Party Heights<span class="sr-only">(current)</span></a></li>
                     <li><a href="coin-toss.html">Tossing Coins</a></li>
                     <li><a href="data-summary.html">Data Summary</a></li>
                 </ul>
@@ -33,26 +34,28 @@
         </div>
     </nav>
 
-    <h1>Graph Simulation Algorithms</h1>
+    <h1>Simulating Heights of People</h1>
+
+    <pre>var heightResult = function() {
+    return Math.floor(jStat.normal.sample(177, 7.4));
+}</pre>
+
     <div class="bs-callout bs-callout-info">
-        <p>Adding to graph? <span data-bind="text: addToGraph() ? 'Yes' : 'No'"></span> <button data-bind="text: addToGraph() ? 'Stop' : 'Start', click: toggleGraph"></button></p>
-        <p>Current Iterations: <span data-bind="text: numberOfNodes"></span></p>
+        Height of Last Person Invited: <span data-bind="text: lastResult"></span>
+
+        <button data-bind="click: invitePerson">
+            Invite a New Person
+        </button>
+        <button data-bind="click: inviteTenPeople">
+            Invite Ten People
+        </button>
+
     </div>
 
 
 
-    <div data-bind="if: showingChart">
-        <button data-bind="click: toggleShowingChart">Switch to Graph Visualisation</button>
 
-        <canvas data-bind="chart: d"></canvas>
-        </div>
-
-    <div data-bind="if: !showingChart()">
-        <button data-bind="click: toggleShowingChart">Switch to Degree Distribution</button>
-        <div data-bind="treeViz: nodeMap">
-
-        </div>
-    </div>
+    <canvas data-bind="chart: asData" style="float: right"></canvas>
 
     </body>
 </html>

@@ -19,13 +19,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">JS-Statistics</a>
+            <a class="navbar-brand" href="index.html">JS-Statistics</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
                 <li><a href="graph.html">Graph Simulation</a></li>
+                <li><a href="coin-toss.html">Party Heights</a></li>
                 <li><a href="coin-toss.html">Tossing Coins</a></li>
                 <li class="active"><a href="data-summary.html">Data Summary<span class="sr-only">(current)</span></a>
                 </li>
@@ -65,6 +66,22 @@
     <b>Skewness:</b> <span data-bind="text: skewness"></span><br/>
     <b>Kurtosis:</b> <span data-bind="text: kurtosis"></span><br/>
     <!-- /ko -->
+    <br/><br/><br/><br/><br/><br/>
+
+    <pre>
+var summaryStatistics = {
+    mean: jStat.mean(extractedData),
+    mode: jStat.mode(extractedData),
+    median: jStat.median(extractedData),
+
+    range: jStat.range(extractedData),
+    variance: jStat.variance(extractedData),
+    stDev: jStat.stdev(extractedData),
+
+    skewness: jStat.skewness(extractedData),
+    kurtosis: jStat.kurtosis(extractedData)
+}
+    </pre>
 </div>
 
 <div data-bind="if: selectedView() === 'stratified'">
@@ -111,6 +128,29 @@
 
 <div data-bind="if: selectedView() === 'freq'">
     <canvas data-bind="frequencyChart: freq"></canvas>
+
+    <pre>
+var myNewChart = new Chart(ctx).Bar(data, {
+    animation: false,
+});
+    </pre>
+
+    <pre>
+{
+	"labels": ["-6", "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40"],
+
+	"datasets": [{
+		"label": "Frequency",
+		"data": [2, 5, 16, 61, 153, 228, 389, 477, 611, 773, 1061, 1256, 1611, 2075, 2418, 2813, 3427, 3655, 4255, 4619, 5057, 5528, 5476, 5402, 5480, 5611, 5598, 5190, 4810, 4281, 3891, 3688, 3260, 2947, 2487, 1996, 1790, 1273, 894, 628, 393, 222, 120, 39, 24, 13, 2],
+		"fillColor": "rgba(220,30,30,0.2)",
+		"strokeColor": "rgba(220,30,30,1)",
+		"pointColor": "rgba(220,30,30,1)",
+		"pointStrokeColor": "#fff",
+		"pointHighlightFill": "#fff",
+		"pointHighlightStroke": "rgba(220,30,30,1)"
+	}]
+}
+    </pre>
 </div>
 
 <div data-bind="if: selectedView() === 'annualAvg'">
