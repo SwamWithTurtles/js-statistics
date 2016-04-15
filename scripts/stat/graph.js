@@ -23,7 +23,7 @@ define(["knockout", "lodash", "stat/weightedRandom", "config/chartOptions"], fun
         var rec = false;
         var ix = 0;
 
-        while(!rec && ix < nodesToSearch.children.length) {
+        while(!rec && nodesToSearch.children && ix < nodesToSearch.children.length) {
             rec = findNodeMeetingCondition(predicate, nodesToSearch.children[ix]);
             ix++;
         }
