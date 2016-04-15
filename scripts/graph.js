@@ -1,19 +1,30 @@
 require.config({
     paths: {
         'ko-lib': '../bower_components/knockout/dist/knockout',
-        'knockout': 'lib/ko-lib',
+        'knockout': 'config/ko-lib',
         'chart': '../bower_components/Chart.js/Chart',
         'lodash': '../bower_components/lodash/lodash',
-        'd3': '../bower_components/d3/d3.min'
+        'papaparse': '../bower_components/papaparse/papaparse.min',
+        'd3': '../bower_components/d3/d3.min',
+        'jStat': '../bower_components/jstat/dist/jstat.min'
+
+
     },
     shim: {
         'chart': {
             exports: "Chart",
         },
+        'papaparse': {
+            exports: "Papa"
+        },
+        'jStat': {
+            exports: "jStat"
+        }
     }
 
-})
-require(['knockout', 'graph/graph'], function(ko, Graph) {
+});
+
+require(['knockout', 'stat/graph'], function(ko, Graph) {
 
     var g = new Graph();
 

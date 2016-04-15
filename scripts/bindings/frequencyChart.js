@@ -1,4 +1,4 @@
-define(['ko-lib', 'lodash', 'chart'], function(ko, _, Chart) {
+define(['ko-lib', 'lodash', 'chart', 'config/chartOptions'], function(ko, _, Chart, ChartOptions) {
 
     ko.bindingHandlers.frequencyChart = {
         update: function(element, valueAccessor) {
@@ -16,25 +16,9 @@ define(['ko-lib', 'lodash', 'chart'], function(ko, _, Chart) {
 
             data = _.sortBy(presorted, function(x) {return parseInt(x.label);});
 
-            labels = _.map(data, function(d) { return d.label});
-            counts = _.map(data, function(d) {return d.count})
-
-            var data = {
-                 'labels': labels,
-                 'datasets': [
-                     {
-                         label: "Frequency of Nodes",
-                         data: counts,
-
-                                 fillColor: "rgba(220,30,30,0.2)",
-                                 strokeColor: "rgba(220,30,30,1)",
-                                 pointColor: "rgba(220,30,30,1)",
-                                 pointStrokeColor: "#fff",
-                                 pointHighlightFill: "#fff",
-                                 pointHighlightStroke: "rgba(220,30,30,1)"
-                     }
-                 ]
-             };
+            labels = _.map(data, 'label');
+            counts = _.map(data, 'count')
+            var data = new ChartOptions({seriesName: "Frequency", points: counts}, labels);
 
             var ctx = element.getContext("2d");
             ctx.canvas.width = 600;

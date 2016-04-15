@@ -1,17 +1,25 @@
 require.config({
     paths: {
         'ko-lib': '../bower_components/knockout/dist/knockout',
-        'knockout': 'lib/ko-lib',
+        'knockout': 'config/ko-lib',
         'chart': '../bower_components/Chart.js/Chart',
         'lodash': '../bower_components/lodash/lodash',
-        'd3': '../bower_components/d3/d3.min'
+        'papaparse': '../bower_components/papaparse/papaparse.min',
+        'd3': '../bower_components/d3/d3.min',
+        'jStat': '../bower_components/jstat/dist/jstat.min'
     },
+
     shim: {
         'chart': {
             exports: "Chart",
         },
+        'papaparse': {
+            exports: "Papa"
+        },
+        'jStat': {
+            exports: "jStat"
+        }
     }
-
 });
 
 
@@ -25,6 +33,7 @@ require(['knockout', 'lodash'], function(ko, Graph, _) {
     var viewModel = {
 
         lastResult: ko.observable(""),
+
         tossCoin: function() {
             if(viewModel.lastResult()) {
                 viewModel.allResults.push(viewModel.lastResult())
@@ -32,8 +41,8 @@ require(['knockout', 'lodash'], function(ko, Graph, _) {
             }
             viewModel.lastResult(coinTossResult());
         },
-        allResults: ko.observableArray()
 
+        allResults: ko.observableArray()
     }
 
     ko.applyBindings(viewModel);
