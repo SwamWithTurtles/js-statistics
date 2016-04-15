@@ -38,16 +38,80 @@
     <div class="bs-callout bs-callout-warning">
         <p>Data collected from the US National Climatic Data Centre, and represents hourly surface temperature collections in Santa Bernardina, Uruguay from April 1986 to April 2016</p>
 
+        <button data-bind="click: function() {selectedView('summaryStats')}">Statistics</button>
+        <button data-bind="click: function() {selectedView('stratified')}">Stratified Statistics</button>
         <button data-bind="click: function() {selectedView('freq')}">Frequency</button>
         <button data-bind="click: function() {selectedView('annualAvg')}">Annual Average</button>
         <button data-bind="click: function() {selectedView('hourAvg')}">Hourly Average</button>
 
     </div>
 
+    <div data-bind="if: selectedView() === 'summaryStats'">
+        <!-- ko with:summaryStats-->
+        <h2>Location</h2>
+        <b>Mean:</b> <span data-bind="text: mean"></span><br/>
+        <b>Median:</b> <span data-bind="text: median"></span><br/>
+        <b>Mode:</b> <span data-bind="text: mode"></span><br/>
+
+        <h2>Spread</h2>
+        <b>Standard Deviation:</b> <span data-bind="text: stDev"></span><br/>
+        <b>Variance:</b> <span data-bind="text: variance"></span><br/>
+        <b>Range:</b> <span data-bind="text: range"></span><br/>
+
+        <h2>Shape</h2>
+        <b>Skewness:</b> <span data-bind="text: skewness"></span><br/>
+        <b>Kurtosis:</b> <span data-bind="text: kurtosis"></span><br/>
+        <!-- /ko -->
+    </div>
+
+    <div data-bind="if: selectedView() === 'stratified'">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>
+
+                </td>
+                <td colspan="3">Location</td>
+
+                <td colspan="3">Spread</td>
+
+
+            </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>Mean</td>
+                    <td>Median</td>
+                    <td>Mode</td>
+                    <td>StDev</td>
+                    <td>Variance</td>
+                    <td>Range</td>
+                </tr>
+            </thead>
+            <tbody>
+        <!-- ko foreach:stratifiedStats-->
+        <tr>
+
+        <td data-bind="text: name"></td>
+        <!-- ko with: value -->
+            <td data-bind="text: mean"></td>
+        <td data-bind="text: median"></td>
+        <td data-bind="text: mode"></td>
+
+        <td data-bind="text: stDev"></td>
+        <td data-bind="text: variance"></td>
+        <td data-bind="text: range"></td>
+        <!-- /ko -->
+        </tr>
+
+            <!-- /ko -->
+            <tbody></tbody>
+        </table>
+
+    </div>
+
     <div data-bind="if: selectedView() === 'freq'">
         <canvas data-bind="frequencyChart: freq"></canvas>
     </div>
-
 
     <div data-bind="if: selectedView() === 'annualAvg'">
         <canvas data-bind="chart: averageOverYears"></canvas>

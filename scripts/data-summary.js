@@ -5,7 +5,8 @@ require.config({
         'chart': '../bower_components/Chart.js/Chart',
         'lodash': '../bower_components/lodash/lodash',
         'papaparse': '../bower_components/papaparse/papaparse.min',
-        'd3': '../bower_components/d3/d3.min'
+        'd3': '../bower_components/d3/d3.min',
+        'jStat': '../bower_components/jstat/dist/jstat.min'
     },
     shim: {
         'chart': {
@@ -13,6 +14,9 @@ require.config({
         },
         'papaparse': {
             exports: "Papa"
+        },
+        jStat: {
+            exports: "jStat"
         }
     }
 
@@ -39,7 +43,37 @@ var isValid = function(row) {
     return row[2] && parseFloat(row[16]) <= 50;
 }
 
-require(['knockout', 'papaparse', 'lodash'], function(ko, Papa, _) {
+var average = function(x) {return _.reduce(x, function(a,m,i,p) {
+       return a + m.temp/p.length;
+       } ,0);}
+
+
+
+require(['knockout', 'papaparse', 'lodash', 'jStat'], function(ko, Papa, _, jStat) {
+
+var summaryStats = function(data) {
+        var extractedData = _(data).map(function(x) {
+            return x.temp;
+        }).filter(_.isNumeric).value();
+
+
+        var roundTo2dp = function(x) { return Math.floor(x * 100) / 100}
+
+        var unrounded = {
+            mean: jStat.mean(extractedData),
+            mode: jStat.mode(extractedData),
+            median: jStat.median(extractedData),
+
+            range: jStat.range(extractedData),
+            variance: jStat.variance(extractedData),
+            stDev: jStat.stdev(extractedData),
+
+            skewness: jStat.skewness(extractedData),
+            kurtosis: jStat.kurtosis(extractedData)
+        }
+
+        return _.mapValues(unrounded, roundTo2dp)
+    }
 
     var chartViews = ["freq", "annualAvg"]
     var selectedView = ko.observable(chartViews[0]);
@@ -67,9 +101,7 @@ require(['knockout', 'papaparse', 'lodash'], function(ko, Papa, _) {
         averageOverYears: ko.computed(function() {
             var aggData = _.groupBy(data(), 'year');
             var x = _.mapValues(aggData, function(x) {
-                 return _.reduce(x, function(a,m,i,p) {
-                 return a + m.temp/p.length;
-                 } ,0);
+                 return average(x);
              });
 
              delete x[undefined];
@@ -129,8 +161,33 @@ require(['knockout', 'papaparse', 'lodash'], function(ko, Papa, _) {
                ]
            };
 
+        }),
+
+        summaryStats: ko.computed(function() {
+            return summaryStats(data());
+
+        }),
+
+        stratifiedStats: ko.computed(function() {
+            var aggData = _.groupBy(data(), 'month');
+            var x =  _.mapValues(aggData, summaryStats);
+            delete x[undefined];
+
+            var formattedData = [];
+
+            _.forOwn(x, function(value, key) {
+                formattedData.push( {
+                    name: key,
+                    value: value
+                });
+            })
+
+            formattedData = _.sortBy(formattedData, function(r) {return parseInt(r.name)});
+
+            return formattedData;
         })
 
     }
+
 
 });
